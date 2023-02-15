@@ -1,5 +1,5 @@
 //react
-import { View, Text, Alert, StyleSheet, Image, SafeAreaView, TextInput } from "react-native";
+import { View, Text, Alert, StyleSheet, Image, SafeAreaView, TextInput, TouchableOpacity } from "react-native";
 import { useState } from "react";
 //firebase
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -7,7 +7,11 @@ import { auth } from "../config/firebase"
 //assets
 const backImage = require('../assets/backImage.png')
 
-const Login = () => {
+interface Props {
+    navigation: any
+}
+
+const Login = ({ navigation }: Props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -35,7 +39,6 @@ const Login = () => {
                     value={email}
                     onChangeText={(text) => setEmail(text)}
                 />
-                <Text style={styles.title}>Password</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Enter password"
@@ -46,6 +49,16 @@ const Login = () => {
                     value={password}
                     onChangeText={(text) => setPassword(text)}
                 />
+                <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                    <Text style={{ fontWeight: 'bold', color: "white", fontSize: 18 }}>Log In</Text>
+                </TouchableOpacity>
+
+                <View style={{marginTop: 20, flexDirection: 'row', alignItems: 'center', alignSelf: 'center'}}>
+                    <Text style={{color: 'gray', fontWeight: '600', fontSize: 14}}>Don't have an account? </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+                        <Text style={{color: '#f57c00', fontWeight: '600', fontSize: 14}}> Sign Up</Text>
+                    </TouchableOpacity>
+                </View>
             </SafeAreaView>
         </View>
     );
@@ -92,6 +105,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       marginHorizontal: 30,
+      //transform: [{translateY: -20}]
     },
     button: {
       backgroundColor: '#f57c00',
@@ -99,6 +113,6 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: 40,
+      marginTop: 30,
     },
   });
