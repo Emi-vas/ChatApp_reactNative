@@ -44,7 +44,7 @@ const ChatStack = () => {
 
 const AuthStack = () => {
     return(
-      <Stack.Navigator initialRouteName='Login' >
+      <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
           <Stack.Screen name='Login' component={Login} />
           <Stack.Screen name='Signup' component={Signup} />
       </Stack.Navigator>
@@ -80,5 +80,9 @@ const RootNavigator = () => {
 }
 
 export default function App() {
-  return <RootNavigator />;
+  return (
+    <AuthUserProvider>
+      <RootNavigator />
+    </AuthUserProvider>
+  );
 }
